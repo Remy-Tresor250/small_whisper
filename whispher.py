@@ -316,10 +316,10 @@ with gr.Blocks(title="Kinyarwanda Speech Q&A System") as demo:
     - Abana bakunda gukina?
     - Imbuto zigira akahe kamaro?
     - Uri inde?
+    - Indimi zo mu Rwanda ni izihe?
     - Umurwa mukuru w'u Rwanda ni uwuhe?
     - Ntuye mu gihugu cy'u Rwanda.
     - Indirimbo y'igihugu niyihe?
-    - Indimi zo mu Rwanda ni izihe?
     - U Rwanda rufite izihe ntara?
     
     Feel free to ask these questions in Kinyarwanda!
