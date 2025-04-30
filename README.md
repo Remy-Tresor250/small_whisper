@@ -1,144 +1,140 @@
-# Kinyarwanda Voice Assistant
+# Kinyarwanda Speech Q&A System
 
-This project is a voice assistant that can understand spoken Kinyarwanda questions, match them to predefined answers, and respond with synthesized speech.
+This system processes Kinyarwanda speech input to answer common questions in Kinyarwanda. It uses KinyaWhisper for speech recognition and XTTS v2 for text-to-speech synthesis.
 
 ## Features
 
-- Speech recognition for Kinyarwanda using KinyaWhisper model
-- Question-answer matching using fuzzy text matching
-- Text-to-speech using Coqui TTS XTTS v2
-- User-friendly Gradio web interface
+- Speech recognition for Kinyarwanda audio
+- Question matching with a predefined knowledge base
+- Text-to-speech response in Kinyarwanda
+- User-friendly web interface with Gradio
+- Support for both audio file uploads and microphone recording
 
-## Requirements
+## System Requirements
 
-- Python 3.8+
-- PyTorch
-- Torchaudio
-- Transformers (Hugging Face)
-- Coqui TTS
-- Gradio
-- NumPy
+- Python 3.8 or higher
+- 8GB+ RAM recommended
+- CUDA-compatible GPU recommended for faster processing (but not required)
 
 ## Installation
 
-1. Clone this repository:
+### 1. Clone the Repository
+
 ```bash
-git clone https://github.com/yourusername/kinyarwanda-voice-assistant.git
-cd kinyarwanda-voice-assistant
+git clone https://github.com/Remy-Tresor250/small_whisper.git
+cd small_whisper
 ```
 
-2. Create and activate a virtual environment:
+### 2. Create and Activate Virtual Environment
+
+#### On Windows:
+
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+venv\Scripts\activate
 ```
 
-3. Install the required packages:
+#### On macOS/Linux:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Download a reference audio file for TTS voice synthesis (any clear speech sample):
+### 4. Download Pre-trained Models
+
+The system will automatically download required models when first run:
+- KinyaWhisper ASR model
+- XTTS v2 text-to-speech model
+
+## Running the Application
+
+Run the application with the following command:
+
 ```bash
-# Place a WAV file named 'reference_audio.wav' in the project root
+python whisper.py
 ```
 
-## Usage
-
-1. Run the application:
-```bash
-python app.py
+Once started, the application will be accessible in your web browser at:
+```
+http://localhost:7860
 ```
 
-2. Open the provided URL in your web browser (typically http://127.0.0.1:7860)
+## Using the System
 
-3. Use the microphone to record a question in Kinyarwanda or upload an audio file
+1. **Upload Audio Tab**
+   - Upload an audio file containing a question in Kinyarwanda
+   - Click "Process Audio" to analyze the question and get an answer
 
-4. Click "Submit" to process the audio
+2. **Record Audio Tab**
+   - Record your question in Kinyarwanda using your microphone
+   - Click "Process Recording" to analyze the question and get an answer
 
-5. View the transcription, matched question, and answer
+3. **Review Results**
+   - The system will show:
+     - Transcription of your question
+     - Which question in the database it matched to
+     - Text answer
+     - Audio response in Kinyarwanda
 
-6. Listen to the synthesized speech response
+## Best working test Examples
 
-## Project Structure
+For testing the system, try asking the following questions in Kinyarwanda:
 
-- `app.py`: Main application script with ASR, QA matching, TTS, and Gradio interface
-- `output/`: Directory for storing generated audio files
-- `audio_samples/`: Sample audio recordings in Kinyarwanda
-- `transcriptions/`: Text transcriptions of the audio samples
+1. "Abana bakunda gukina?" (Do children like to play?)
+   - Expected answer: "Yego! Akenshi bikinira umupira." (Yes! They often play ball.)
 
-## Sample Questions and Answers
+2. "Imbuto zigira akahe kamaro?" (What is the benefit of fruits?)
+   - Expected answer: "Zongera intungamubiri." (They increase nutrients.)
 
-The system includes the following question-answer pairs in Kinyarwanda:
+Other questions the system can answer include:
+- "Uri inde?" (Who are you?)
+- "Umurwa mukuru w'u Rwanda ni uwuhe?" (What is the capital of Rwanda?)
+- "Ntuye mu gihugu cy'u Rwanda." (I live in Rwanda.)
+- "Indirimbo y'igihugu niyihe?" (What is the national anthem?)
+- "Indimi zo mu Rwanda ni izihe?" (What are the languages of Rwanda?)
+- "U Rwanda rufite izihe ntara?" (What provinces does Rwanda have?)
 
-1. Q: "Rwanda Coding Academy iherereye he?"
-   A: "Iherereye mu Karere ka Nyabihu, mu Ntara y'Iburengerazuba."
+## Directory Structure
 
-2. Q: "Umurwa mukuru w'u Rwanda ni uwuhe?"
-   A: "Ni Kigali."
+- `audio_samples/` - Stores user audio samples
+- `transcriptions/` - Stores transcriptions of audio files
+- `answers/` - Stores text and audio answers
 
-3. Q: "Abana bakunda gukina?"
-   A: "Yego! Akenshi bikinira umupira."
+## Customizing Voice
 
-4. Q: "Imbuto zigira akahe kamaro?"
-   A: "Zongera intungamubiri."
+To use a custom voice for responses:
+1. Add a reference voice file named `ref_voice.wav` to the root directory
+2. The system will automatically use this voice for synthesizing responses
 
-5. Q: "Ntuye mu gihugu cy'u Rwanda"
-   A: "Waba utuye muri Kigali?"
+## Troubleshooting
 
-6. Q: "Indirimbo y'igihugu"
-   A: "Indirimbo y'igihugu yitwa Rwanda Nziza."
+1. **TTS Issues**
+   - If you encounter TTS errors, the system will fall back to text-only mode
+   - Check TTS installation and dependencies
 
-7. Q: "Ikirere cyacu gikorera iki?"
-   A: "Ikirere cya Afurika cyacu gikorera umutungo kamere."
+2. **Audio Input Problems**
+   - Ensure your microphone is properly set up
+   - Try using higher quality audio recordings
 
-8. Q: "Bene Afurika bafite icyizere?"
-   A: "Afurika ifite icyizere cyinshi cyo gutera imbere."
-
-9. Q: "Ni iki gifite akamaro mu buzima?"
-   A: "Ubuzima bwiza bufite akamaro mu buzima bwa muntu."
-
-10. Q: "Ururimi ruvugwa mu Rwanda"
-    A: "Mu Rwanda havugwa Ikinyarwanda, Icyongereza, Igifaransa n'Igiswahili."
-
-## Audio Samples
-
-The repository includes 5 sample audio files in Kinyarwanda:
-
-1. `audio_samples/question1.wav` - Question about Rwanda Coding Academy
-2. `audio_samples/question2.wav` - Question about Kigali
-3. `audio_samples/question3.wav` - Question about children playing
-4. `audio_samples/question4.wav` - Question about fruits
-5. `audio_samples/question5.wav` - Statement about living in Rwanda
-
-## Transcriptions
-
-Text transcriptions of the audio samples are provided in:
-
-1. `transcriptions/question1.txt`
-2. `transcriptions/question2.txt`
-3. `transcriptions/question3.txt`
-4. `transcriptions/question4.txt`
-5. `transcriptions/question5.txt`
+3. **Model Download Failures**
+   - Ensure you have a stable internet connection
+   - Try running the application again
 
 ## Extending the System
 
-To add more question-answer pairs, modify the `qa_pairs` dictionary in `app.py`:
+To add more question-answer pairs:
+1. Edit the `qa_pairs` dictionary in the `KinyarwandaQASystem` class
+2. Add your new pairs in the format: `"Question in Kinyarwanda": "Answer in Kinyarwanda"`
 
-```python
-qa_pairs = {
-    "Your question in Kinyarwanda": "Your answer in Kinyarwanda",
-    # Add more pairs here
-}
-```
-
-## License
-
-[MIT License](LICENSE)
 
 ## Acknowledgments
 
-- [KinyaWhisper model by benax-rw](https://huggingface.co/benax-rw/KinyaWhisper)
-- [Coqui TTS](https://github.com/coqui-ai/TTS)
-- [Hugging Face Transformers](https://github.com/huggingface/transformers)
-- [Gradio](https://github.com/gradio-app/gradio)
+- KinyaWhisper model by [benax-rw](https://huggingface.co/benax-rw/KinyaWhisper)
+- XTTS v2 for text-to-speech synthesis
