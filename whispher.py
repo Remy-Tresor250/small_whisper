@@ -313,10 +313,10 @@ with gr.Blocks(title="Kinyarwanda Speech Q&A System") as demo:
     ## Available Questions
     
     The system can answer questions about:
-    - Uri inde?
-    - Umurwa mukuru w'u Rwanda ni uwuhe?
     - Abana bakunda gukina?
     - Imbuto zigira akahe kamaro?
+    - Uri inde?
+    - Umurwa mukuru w'u Rwanda ni uwuhe?
     - Ntuye mu gihugu cy'u Rwanda.
     - Indirimbo y'igihugu niyihe?
     - Indimi zo mu Rwanda ni izihe?
